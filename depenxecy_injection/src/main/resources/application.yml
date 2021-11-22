@@ -1,0 +1,5 @@
+spring:  application:    name: diservice      config:    activate:      on-profile:      - devserver:  port: 9090
+
+logging:
+  level:
+    '[org.springframework.boot]': info        ---    spring:  application:    name: diservice  config:    activate:      on-profile:      - prodserver:  port: 9095logging:  level:    '[org.springframework.boot]': debug    
