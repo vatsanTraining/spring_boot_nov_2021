@@ -11,7 +11,6 @@ import com.example.demo.StudentService;
 
 @Component
 //@Scope(scopeName = ConfigurableBeanFactory.SCOPE_PROTOTYPE)
-//@Lazy
 public class Student {
 
 	// Field Injection

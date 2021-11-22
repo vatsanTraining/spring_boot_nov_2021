@@ -18,20 +18,20 @@ public class DepenxecyInjectionApplication {
 	public static void main(String[] args) {
 	ConfigurableApplicationContext ctx	 =SpringApplication.run(DepenxecyInjectionApplication.class, args);
 	
-	     Student ram = ctx.getBean(Student.class);
-	     
-	     // Gets the Implementation Class of the ConfigurableApplicationContext
-	     
-	     System.out.println(ctx.getClass().getName());
-	     
-	     
-	     System.out.println("is Student Pass :="  +ram.getResult(60));
-	     
-	     
-	     System.out.println("is Singleton:= " +ctx.isSingleton("student"));
-	     
-	     System.out.println("is Proptype:= " +ctx.isPrototype("student"));
-	     
+//	     Student ram = ctx.getBean(Student.class);
+//	     
+//	     // Gets the Implementation Class of the ConfigurableApplicationContext
+//	     
+//	     System.out.println(ctx.getClass().getName());
+//	     
+//	     
+//	     System.out.println("is Student Pass :="  +ram.getResult(60));
+//	     
+//	     
+//	     System.out.println("is Singleton:= " +ctx.isSingleton("student"));
+//	     
+//	     System.out.println("is Proptype:= " +ctx.isPrototype("student"));
+//	     
 	     
 	     
 	     ctx.close();
