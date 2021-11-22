@@ -40,12 +40,13 @@ public class DepenxecyInjectionApplication {
 //	     
 	     
 	     
-	     ctx.close();
+	    // ctx.close();
 	
+	   //  java -jar -Dspring.profiles.active=dev depenxecy_injection-0.0.1-SNAPSHOT.jar
+
 	}
 
-	
-	// Factory Method
+		// Factory Method
 	
 	@Bean
 	public StudentService college() {
