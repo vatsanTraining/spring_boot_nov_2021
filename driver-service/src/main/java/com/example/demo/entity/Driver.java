@@ -10,6 +10,7 @@ import javax.persistence.Table;
 import org.springframework.format.annotation.DateTimeFormat;
 import org.springframework.format.annotation.DateTimeFormat.ISO;
 
+import io.swagger.v3.oas.annotations.media.Schema;
 import lombok.AllArgsConstructor;
 import lombok.Data;
 import lombok.NoArgsConstructor;
@@ -36,10 +37,12 @@ public class Driver {
     private String email;
 	
 	@Column(name = "mobilenumber")
+	@Schema(description = "Registred Ten Digit Mobile Number")
 	private long mobileNumber;
 	
 	@Column(name = "birthdate")
 	@DateTimeFormat(iso = ISO.DATE)
+	@Schema(description = "The date of Birth in yyyy-mm-dd format")
     private LocalDate birthDate;
 
 

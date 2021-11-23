@@ -9,8 +9,13 @@ import org.springframework.boot.autoconfigure.SpringBootApplication;
 import org.springframework.context.annotation.Bean;
 
 import com.example.demo.repos.DriverRepository;
+
+import io.swagger.v3.oas.annotations.OpenAPIDefinition;
+import io.swagger.v3.oas.annotations.info.Info;
+
 import com.example.demo.entity.*;
 @SpringBootApplication
+@OpenAPIDefinition(info = @Info(title = "Driver Service", version = "1.0"))
 public class DriverServiceApplication {
 
 	public static void main(String[] args) {

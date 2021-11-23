@@ -11,6 +11,8 @@ import org.springframework.web.servlet.support.ServletUriComponentsBuilder;
 
 import com.example.demo.services.DriverService;
 
+import io.swagger.v3.oas.annotations.Operation;
+import io.swagger.v3.oas.annotations.Parameter;
 import lombok.AllArgsConstructor;
 
 import java.net.URI;
@@ -31,7 +33,10 @@ public class DriverController {
 	}
 	
 	@GetMapping(path = "/drivers/{id}")
-	public Driver getById(@PathVariable("id") Long id){
+	@Operation(description = "Fetches Driver Details By Id")
+	public Driver getById(
+			@Parameter(description = "Three digit Unique Id of the Driver",example = "101",required = true) 
+			@PathVariable("id") Long id){
 		
 		return this.service.findById(id);
 	}
