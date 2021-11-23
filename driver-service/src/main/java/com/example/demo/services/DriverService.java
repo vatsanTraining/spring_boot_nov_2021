@@ -1,6 +1,5 @@
 package com.example.demo.services;
 
-import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
 import com.example.demo.repos.DriverRepository;
@@ -9,21 +8,25 @@ import lombok.AllArgsConstructor;
 
 import java.util.*;
 import com.example.demo.entity.*;
+import com.example.demo.model.DriverNotFoundException;
 
 @Service
+@AllArgsConstructor
 public class DriverService {
 
 	private DriverRepository repos;
 	
+		
 	
-	
-	
-    @Autowired
-	public DriverService(DriverRepository repos) {
-		super();
-		this.repos = repos;
+	public Driver findById(Long id) {
+				
+		
+		return this.repos.findById(id)
+				  .orElseThrow(() -> new DriverNotFoundException("Element with Given Id Not Found"));
+		
+		
 	}
-
+   
 
 	public List<Driver> getAll(){
 		
@@ -33,6 +36,15 @@ public class DriverService {
 	
 	public Driver addEntity(Driver entity) {
 		
-		return this.repos.save(entity);
+		Optional<Driver> isAdded =this.repos.findById(entity.getId());
+		
+		if(isAdded.isEmpty()) {
+			return entity;
+		} else {
+			
+			return null;
+		}
+		
+		
 	}
 }
