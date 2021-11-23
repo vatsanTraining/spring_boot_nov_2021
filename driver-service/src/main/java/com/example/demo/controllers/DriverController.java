@@ -3,10 +3,14 @@ package com.example.demo.controllers;
 import org.springframework.data.domain.Page;
 import org.springframework.format.annotation.DateTimeFormat;
 import org.springframework.format.annotation.DateTimeFormat.ISO;
+import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
+import org.springframework.web.bind.annotation.DeleteMapping;
 import org.springframework.web.bind.annotation.GetMapping;
+import org.springframework.web.bind.annotation.PatchMapping;
 import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.PostMapping;
+import org.springframework.web.bind.annotation.PutMapping;
 import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestParam;
@@ -37,6 +41,51 @@ public class DriverController {
 		return this.service.getAll();
 	}
 	
+	 
+	@PostMapping(path = "/drivers")
+	public ResponseEntity<Driver> addEntity(@RequestBody Driver driver){
+		
+		Driver addedObject = this.service.addEntity(driver);
+		
+		if(addedObject!=null) {
+		URI location= ServletUriComponentsBuilder.fromCurrentRequest()
+				  .path("/{id}")
+		          .buildAndExpand(driver.getId())
+		          .toUri();  
+
+		return ResponseEntity.created(location).body(driver);  
+		} else {
+			
+			 throw new RuntimeException("Resource With Id Already Exisits");
+		}
+				
+	}
+	
+	
+	@PutMapping(path = "/drivers")
+	 public Driver update(@RequestBody Driver entity) {
+	      return this.service.update(entity);
+	 }
+
+	@DeleteMapping(path = "/drivers")
+
+	public ResponseEntity<Driver> remove(@RequestBody Driver entity) {
+
+	Driver driver = this.service.remove(entity).orElseThrow(()-> new RuntimeException("Element NOT FOUND"));
+
+	     return ResponseEntity.ok().body(driver);
+
+	}
+
+
+	@PatchMapping(path = "/drivers/update/{id}/{latestNumber}")
+	public ResponseEntity<String> updateMobileNumber(@PathVariable("id") long id, 
+			@PathVariable("latestNumber") long latestNumber) {
+
+	 return  ResponseEntity.ok().body("Updated MobileNumber of :="+id);
+
+	}
+
 	@GetMapping(path = "/drivers/{id}")
 	@Operation(description = "Fetches Driver Details By Id")
 	public Driver getById(
@@ -45,6 +94,7 @@ public class DriverController {
 		
 		return this.service.findById(id);
 	}
+
 	
 	@GetMapping(path = "/drivers/srch/firstname/{name}")
 	@Operation(description = "Fetches Driver Details By First Name")
@@ -77,25 +127,6 @@ public class DriverController {
 	
 
 	
-	@PostMapping(path = "/drivers")
-	public ResponseEntity<Driver> addEntity(@RequestBody Driver driver){
-		
-		Driver addedObject = this.service.addEntity(driver);
-		
-		if(addedObject!=null) {
-		URI location= ServletUriComponentsBuilder.fromCurrentRequest()
-				  .path("/{id}")
-		          .buildAndExpand(driver.getId())
-		          .toUri();  
 
-		return ResponseEntity.created(location).body(driver);  
-		} else {
-			
-			 throw new RuntimeException("Resource With Id Already Exisits");
-		}
-				
-	}
-	
-	
 	
 }

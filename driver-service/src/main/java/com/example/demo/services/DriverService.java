@@ -64,4 +64,30 @@ public class DriverService {
 		
 		
 	}
+	
+	 public Optional<Driver> remove(Driver entity) {
+		   
+		   Optional<Driver> optional = Optional.empty();
+
+		if(this.repos.existsById(entity.getId())) {
+
+		   this.repos.delete(entity);
+
+		   optional = Optional.of(entity);
+		}
+
+		      return optional;  
+		 }
+
+
+	public Driver update(Driver entity) {
+		
+		return this.repos.save(entity);
+	}
+
+    public int updateMobileNumber(Long id, long latestNumber) {
+		
+		return this.repos.updateMobileNumber(id,latestNumber);
+	}
+	
 }
