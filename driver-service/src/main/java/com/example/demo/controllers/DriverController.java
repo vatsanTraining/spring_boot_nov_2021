@@ -1,5 +1,7 @@
 package com.example.demo.controllers;
 
+import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.beans.factory.annotation.Value;
 import org.springframework.data.domain.Page;
 import org.springframework.format.annotation.DateTimeFormat;
 import org.springframework.format.annotation.DateTimeFormat.ISO;
@@ -29,19 +31,30 @@ import java.util.*;
 import com.example.demo.entity.*;
 @RestController
 @RequestMapping(path = "/api/v1")
-@AllArgsConstructor
+//@AllArgsConstructor
 public class DriverController {
 
+	@Autowired
 	private DriverService service;
 	
 	
-	@GetMapping(path = "/drivers")
-	public List<Driver> getAll(){
-		
-		return this.service.getAll();
-	}
+	@Value("${server.port}")
+	private String serverPort;
 	
+	
+//	@GetMapping(path = "/drivers")
+//	public List<Driver> getAll(){
+//		
+//		return this.service.getAll();
+//	}
+	
+	@GetMapping(path = "/drivers")
+	public String getAll(){
+		
+		return this.service.getAll().toString()+"=:="+serverPort;
+	}
 	 
+	
 	@PostMapping(path = "/drivers")
 	public ResponseEntity<Driver> addEntity(@RequestBody Driver driver){
 		
