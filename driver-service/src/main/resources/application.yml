@@ -9,6 +9,19 @@ spring:
   jpa:    show-sql: true
     hibernate:      ddl-auto: update  application:    name: driver-service
       
-server:  port: 3034
+server:  port: 3030
   
 eureka:  client:    service-url:      defaultZone: http://localhost:8761/eureka        
+      
+management:  endpoints:    web:      exposure:        include:        - "*"      
+  endpoint:    shutdown:      enabled: true
+
+info:
+  author: srivatsan
+  application-name : ${spring.application.name}        
+  build:
+    artificatId: '@project.artifact@'  
+  java:
+    version: '@java.version@'
+    
+        
