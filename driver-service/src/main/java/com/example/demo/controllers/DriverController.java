@@ -82,8 +82,9 @@ public class DriverController {
 	public ResponseEntity<String> updateMobileNumber(@PathVariable("id") long id, 
 			@PathVariable("latestNumber") long latestNumber) {
 
-	 return  ResponseEntity.ok().body("Updated MobileNumber of :="+id);
+		this.service.updateMobileNumber(id, latestNumber);
 
+	 return  ResponseEntity.ok().body("Updated MobileNumber ");
 	}
 
 	@GetMapping(path = "/drivers/{id}")
