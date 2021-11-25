@@ -1,0 +1,7 @@
+spring:
+   application:    name: sample-service
+   config:    import: configserver:http://localhost:8888        
+server:  port: 3038
+  
+
+management:  endpoints:    web:      exposure:        include:        - "*"
