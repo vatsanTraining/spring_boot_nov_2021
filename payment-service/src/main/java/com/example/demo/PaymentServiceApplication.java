@@ -3,11 +3,17 @@ package com.example.demo;
 import org.springframework.beans.factory.annotation.Qualifier;
 import org.springframework.boot.SpringApplication;
 import org.springframework.boot.autoconfigure.SpringBootApplication;
+import org.springframework.cloud.circuitbreaker.resilience4j.ReactiveResilience4JCircuitBreakerFactory;
+import org.springframework.cloud.circuitbreaker.resilience4j.Resilience4JCircuitBreakerFactory;
+import org.springframework.cloud.circuitbreaker.resilience4j.Resilience4JConfigBuilder;
+import org.springframework.cloud.client.circuitbreaker.Customizer;
 import org.springframework.cloud.client.discovery.EnableDiscoveryClient;
 import org.springframework.cloud.client.loadbalancer.LoadBalanced;
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Primary;
 import org.springframework.web.reactive.function.client.WebClient;
+
+import io.github.resilience4j.circuitbreaker.CircuitBreakerConfig;
 
 @SpringBootApplication
 @EnableDiscoveryClient
@@ -40,6 +46,16 @@ public class PaymentServiceApplication {
 	@Primary
 	public WebClient client(WebClient.Builder builderRef) {
 		
+
 		return builderRef.build();
 	}
+	
+	@SuppressWarnings("deprecation")
+	@Bean
+	public Resilience4JCircuitBreakerFactory defaultCustomizer() {
+		
+		return new Resilience4JCircuitBreakerFactory();
+	}
+	
+	
 }
