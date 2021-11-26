@@ -11,6 +11,7 @@ import org.springframework.cloud.client.discovery.EnableDiscoveryClient;
 import org.springframework.cloud.client.loadbalancer.LoadBalanced;
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Primary;
+import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
 import org.springframework.web.reactive.function.client.WebClient;
 
 import io.github.resilience4j.circuitbreaker.CircuitBreakerConfig;
@@ -50,11 +51,10 @@ public class PaymentServiceApplication {
 		return builderRef.build();
 	}
 	
-	@SuppressWarnings("deprecation")
-	@Bean
-	public Resilience4JCircuitBreakerFactory defaultCustomizer() {
+		@Bean
+	public BCryptPasswordEncoder encoder() {
 		
-		return new Resilience4JCircuitBreakerFactory();
+		return new BCryptPasswordEncoder();
 	}
 	
 	
