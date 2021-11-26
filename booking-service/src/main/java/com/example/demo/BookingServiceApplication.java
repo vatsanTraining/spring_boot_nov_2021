@@ -31,7 +31,8 @@ public class BookingServiceApplication {
 			@Override
 			public void run(String... args) throws Exception {
 
-				repo.save(new BookingEntity(202L,"guindy", "airport", 997L, 102L, LocalDateTime.now(), BookingStatus.COMPLETED));
+				repo.save(new BookingEntity(202L,"guindy", "airport", 997L, 102L,
+						LocalDateTime.now(), BookingStatus.COMPLETED));
 				
 				
 			}

@@ -1,5 +1,7 @@
 package com.example.demo.controllers;
 
+import java.time.Duration;
+
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.beans.factory.annotation.Qualifier;
 import org.springframework.cloud.circuitbreaker.resilience4j.ReactiveResilience4JCircuitBreakerFactory;
@@ -45,7 +47,7 @@ public class ClientControllerWithCircuitBreaker {
 				 .get()
 				   .uri("lb://DRIVER-SERVICE/api/v1/drivers")
 				     .retrieve()
-				      .bodyToMono(String.class),ex -> Mono.just("fallBack"));
+				      .bodyToMono(String.class),ex -> Mono.just("fallBack")).timeout(Duration.ofMinutes(5));
 
 	}
 

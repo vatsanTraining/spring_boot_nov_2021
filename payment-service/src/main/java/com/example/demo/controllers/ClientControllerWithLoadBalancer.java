@@ -1,5 +1,7 @@
 package com.example.demo.controllers;
 
+import java.time.Duration;
+
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
@@ -30,7 +32,7 @@ public class ClientControllerWithLoadBalancer {
 				 .get()
 				   .uri("lb://DRIVER-SERVICE/api/v1/drivers")
 				     .retrieve()
-				      .bodyToMono(Driver[].class);
+				      .bodyToMono(Driver[].class).timeout(Duration.ofMinutes(5));
 
 	}
 

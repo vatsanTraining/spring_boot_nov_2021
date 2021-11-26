@@ -17,7 +17,7 @@ public class MyGlobalProxyFilter implements GlobalFilter {
 		
 		boolean result =
 				exchange.getRequest().getURI().
-				        getRawPath().contains("message");
+				        getRawPath().contains("v4");
 				      
 				   if(result) {
 				exchange.getResponse().setStatusCode(HttpStatus.UNAUTHORIZED);
