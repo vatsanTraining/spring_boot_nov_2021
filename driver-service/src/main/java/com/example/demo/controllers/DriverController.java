@@ -7,6 +7,8 @@ import org.springframework.format.annotation.DateTimeFormat;
 import org.springframework.format.annotation.DateTimeFormat.ISO;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
+import org.springframework.security.core.context.SecurityContext;
+import org.springframework.security.core.context.SecurityContextHolder;
 import org.springframework.web.bind.annotation.DeleteMapping;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PatchMapping;
@@ -26,8 +28,12 @@ import io.swagger.v3.oas.annotations.Parameter;
 import lombok.AllArgsConstructor;
 
 import java.net.URI;
+import java.security.Principal;
 import java.time.LocalDate;
 import java.util.*;
+
+import javax.annotation.security.RolesAllowed;
+
 import com.example.demo.entity.*;
 @RestController
 @RequestMapping(path = "/api/v1")
@@ -42,17 +48,25 @@ public class DriverController {
 	private String serverPort;
 	
 	
-//	@GetMapping(path = "/drivers")
-//	public List<Driver> getAll(){
-//		
-//		return this.service.getAll();
-//	}
-	
 	@GetMapping(path = "/drivers")
-	public String getAll(){
+	@RolesAllowed(value = {"ROLE_ADMIN"})
+	public List<Driver> getAll(Principal principal){
 		
-		return this.service.getAll().toString()+"=:="+serverPort;
+		SecurityContext ctx = SecurityContextHolder.getContext();
+		
+		System.out.println(ctx.getAuthentication().getDetails());
+		ctx.getAuthentication().getAuthorities().forEach(System.out::println);
+		
+		System.out.println("USER =>>"+ principal.getName());
+		
+		return this.service.getAll();
 	}
+	
+//	@GetMapping(path = "/drivers")
+//	public String getAll(){
+//		
+//		return this.service.getAll().toString()+"=:="+serverPort;
+//	}
 	 
 	
 	@PostMapping(path = "/drivers")
@@ -102,9 +116,16 @@ public class DriverController {
 
 	@GetMapping(path = "/drivers/{id}")
 	@Operation(description = "Fetches Driver Details By Id")
+	@RolesAllowed(value = {"ROLE_USER"})
 	public Driver getById(
 			@Parameter(description = "Three digit Unique Id of the Driver",example = "101",required = true) 
-			@PathVariable("id") Long id){
+			@PathVariable("id") Long id,Principal principal){
+		
+		
+		
+		System.out.println(principal);
+		
+		System.out.println("USER =>>"+ principal.getName());
 		
 		return this.service.findById(id);
 	}
