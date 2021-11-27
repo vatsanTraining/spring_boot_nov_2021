@@ -16,10 +16,7 @@ import reactor.core.publisher.Mono;
 @Component
 public class AuthFilter implements GlobalFilter {
 
-	@Autowired
-    private  WebClient webClientBuilder;
-
-	
+		
 	 
 	@Override
 	public Mono<Void> filter(ServerWebExchange exchange, GatewayFilterChain chain) {

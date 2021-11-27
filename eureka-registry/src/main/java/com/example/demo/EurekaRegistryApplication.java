@@ -12,4 +12,5 @@ public class EurekaRegistryApplication {
 		SpringApplication.run(EurekaRegistryApplication.class, args);
 	}
 
+
 }
